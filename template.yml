@@ -38,3 +38,81 @@ Resources:
         Effect: Allow
         Principal: "*"
         Resource: !GetAtt OrgSinkEventBus.Arn
+
+  # Sends notifications to Slack in response to certain GuardDuty Findings
+  # events that are generated anywhere within the AWS Organization.
+  FindingSlackNotificationsFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Architectures: [arm64]
+      CodeUri: src/finding-slack-notifications
+      Description: >-
+        Sends messages to Slack in response to GuardDuty Finding event
+        notifications.
+      Environment:
+        Variables:
+          AWS_NODEJS_CONNECTION_REUSE_ENABLED: "1"
+      Events:
+        StatusChanges:
+          Properties:
+            EventBusName: !Ref OrgSinkEventBus
+            Pattern:
+              detail-type:
+                - GuardDuty Finding
+              source:
+                - aws.guardduty
+          Type: EventBridgeRule
+      Handler: index.handler
+      MemorySize: 192
+      Policies:
+        - Statement:
+            - Action: events:PutEvents
+              Effect: Allow
+              Resource: !Sub arn:${AWS::Partition}:events:${AWS::Region}:${AWS::AccountId}:event-bus/default
+          Version: "2012-10-17"
+      Runtime: nodejs24.x
+      Tags:
+        prx:meta:tagging-version: "2021-04-07"
+        prx:cloudformation:stack-name: !Ref AWS::StackName
+        prx:cloudformation:stack-id: !Ref AWS::StackId
+        prx:ops:environment: Production
+        prx:dev:application: GuardDuty Toolkit
+      Timeout: 20
+  FindingSlackNotificationsLogGroup:
+    Type: AWS::Logs::LogGroup
+    DeletionPolicy: Delete
+    UpdateReplacePolicy: Delete
+    Properties:
+      LogGroupName: !Sub /aws/lambda/${FindingSlackNotificationsFunction}
+      RetentionInDays: 14
+      Tags:
+        - { Key: prx:meta:tagging-version, Value: "2021-04-07" }
+        - { Key: prx:cloudformation:stack-name, Value: !Ref AWS::StackName }
+        - { Key: prx:cloudformation:stack-id, Value: !Ref AWS::StackId }
+        - { Key: prx:ops:environment, Value: Production }
+        - { Key: prx:dev:application, Value: GuardDuty Toolkit }
+  FindingSlackNotificationsErrorAlarm:
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      AlarmName: !Sub ERROR [GuardDuty Toolkit] Slack Notifications <prod> INVOCATION ERRORS (${AWS::StackName})
+      AlarmDescription: >-
+        The Lambda function that sends GuardDuty finding
+        notifications to Slack is experiencing errors, so some GuardDuty
+        activity may not be visible in Slack.
+      ComparisonOperator: GreaterThanThreshold
+      EvaluationPeriods: 1
+      MetricName: Errors
+      Namespace: AWS/Lambda
+      Period: 60
+      Statistic: Sum
+      Tags:
+        - { Key: prx:meta:tagging-version, Value: "2021-04-07" }
+        - { Key: prx:cloudformation:stack-name, Value: !Ref AWS::StackName }
+        - { Key: prx:cloudformation:stack-id, Value: !Ref AWS::StackId }
+        - { Key: prx:ops:environment, Value: Production }
+        - { Key: prx:dev:application, Value: GuardDuty Toolkit }
+      Threshold: 0
+      TreatMissingData: notBreaching
+      Dimensions:
+        - Name: FunctionName
+          Value: !Ref FindingSlackNotificationsFunction
