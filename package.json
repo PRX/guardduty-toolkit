@@ -1,0 +1,31 @@
+{
+  "name": "cloudformation-toolkit",
+  "version": "1.0.0",
+  "description": "A collection of utilities that integrate with CloudFormation",
+  "type": "module",
+  "engines": {
+    "node": ">= 24.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PRX/cloudformation-toolkit.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "AGPL-3.0",
+  "private": "true",
+  "bugs": {
+    "url": "https://github.com/PRX/cloudformation-toolkit/issues"
+  },
+  "homepage": "https://github.com/PRX/cloudformation-toolkit#readme",
+  "dependencies": {
+    "@aws-sdk/client-eventbridge": "*"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "*",
+    "@types/node": "*",
+    "jsdoc": "*",
+    "typescript": "*",
+    "yarn": "*"
+  }
+}

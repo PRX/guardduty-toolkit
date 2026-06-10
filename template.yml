@@ -1,0 +1,40 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: AWS::Serverless-2016-10-31
+
+Description: A collection of utilities that integrate with GuardDuty
+
+Resources:
+  # This is an _organization sink_ custom EventBridge event bus. It's intended
+  # to exist once within an AWS Organization (i.e., in a single region in a
+  # single account).
+  #
+  # All GuardDuty activity within the organization is expected to be sent
+  # to this event bus. Generally this is done by creating rules on all default
+  # event buses within the organization, which forward all GuardDuty
+  # service events to this bus.
+  #
+  # Any tooling that responds to GuardDuty service events can subscribe to
+  # the relevant events on this bus.
+  #
+  # This bus should always be called `GuardDuty-org-sink`, as that is what
+  # the rules on all default buses expect.
+  OrgSinkEventBus:
+    Type: AWS::Events::EventBus
+    Properties:
+      Name: GuardDuty-org-sink
+  OrgSinkEventBusPolicy:
+    # TODO Should have a Condition to limit this to events sent by events.amazonaws.com
+    # since it's only intended to get events from other event buses, not from
+    # any arbitrary sender
+    Type: AWS::Events::EventBusPolicy
+    Properties:
+      EventBusName: !Ref OrgSinkEventBus
+      StatementId: AllowEventsToGDOrgSink
+      Statement:
+        Action: events:PutEvents
+        Condition:
+          StringEquals:
+            aws:ResourceOrgID: ${aws:PrincipalOrgID}
+        Effect: Allow
+        Principal: "*"
+        Resource: !GetAtt OrgSinkEventBus.Arn
