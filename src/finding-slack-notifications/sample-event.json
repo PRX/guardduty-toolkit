@@ -1,1 +1,171 @@
-{}
+{
+  "msg": "Input event",
+  "event": {
+    "version": "0",
+    "id": "b400d3c6-090b-3f0b-8a43-ceb16bf376ad",
+    "detail-type": "GuardDuty Finding",
+    "source": "aws.guardduty",
+    "account": "1234567890123",
+    "time": "2026-06-10T15:30:02Z",
+    "region": "us-east-1",
+    "resources": [],
+    "detail": {
+      "schemaVersion": "2.0",
+      "accountId": "1234567890123",
+      "region": "us-east-1",
+      "partition": "aws",
+      "id": "64ae752d7fc94d7f9ca8abac1b1514d5",
+      "arn": "arn:aws:guardduty:us-east-1:1234567890123:detector/aecefa09939d6f4f269ac0a7c43e0a43/finding/64ae752d7fc94d7f9ca8abac1b1514d5",
+      "type": "DefenseEvasion:Kubernetes/MaliciousIPCaller.Custom",
+      "resource": {
+        "resourceType": "EKSCluster",
+        "eksClusterDetails": {
+          "name": "GeneratedFindingEKSClusterName",
+          "arn": "arn:aws:eks:us-east-1:123456789000:cluster/clusterName",
+          "createdAt": 1633450420.337,
+          "vpcId": "vpc-0123456789",
+          "status": "ACTIVE",
+          "tags": [
+            {
+              "key": "GeneratedFindingEKSClusterTag1",
+              "value": "GeneratedFindingEKSClusterTagValue1"
+            },
+            {
+              "key": "GeneratedFindingEKSClusterTag2",
+              "value": "GeneratedFindingEKSClusterTagValue2"
+            },
+            {
+              "key": "GeneratedFindingEKSClusterTag3",
+              "value": "GeneratedFindingEKSClusterTagValue3"
+            },
+            {
+              "key": "GeneratedFindingEKSClusterTag4",
+              "value": "GeneratedFindingEKSClusterTagValue4"
+            }
+          ]
+        },
+        "kubernetesDetails": {
+          "kubernetesWorkloadDetails": null,
+          "kubernetesUserDetails": {
+            "username": "GeneratedFindingUserName",
+            "uid": "GeneratedFindingUID",
+            "groups": [
+              "GeneratedFindingUserGroup1",
+              "GeneratedFindingUserGroup2",
+              "GeneratedFindingUserGroup3",
+              "GeneratedFindingUserGroup4"
+            ],
+            "sessionName": [
+              "GeneratedFindingSessionName1",
+              "GeneratedFindingSessionName2",
+              "GeneratedFindingSessionName3",
+              "GeneratedFindingSessionName4"
+            ]
+          }
+        },
+        "accessKeyDetails": {
+          "accessKeyId": "GeneratedFindingAccessKeyId",
+          "principalId": "GeneratedFindingPrincipalId",
+          "userType": "Role",
+          "userName": "GeneratedFindingUserName"
+        }
+      },
+      "service": {
+        "serviceName": "guardduty",
+        "detectorId": "aecefa09939d6f4f269ac0a7c43e0a43",
+        "action": {
+          "actionType": "KUBERNETES_API_CALL",
+          "kubernetesApiCallAction": {
+            "requestUri": "GeneratedFindingRequestURI",
+            "verb": "get",
+            "sourceIPs": [
+              "10.0.0.23",
+              "10.0.0.24",
+              "10.0.0.25",
+              "10.0.0.26"
+            ],
+            "userAgent": "",
+            "remoteIpDetails": {
+              "ipAddressV4": "198.51.100.0",
+              "organization": {
+                "asn": "0",
+                "asnOrg": "GeneratedFindingASNOrg",
+                "isp": "GeneratedFindingISP",
+                "org": "GeneratedFindingORG"
+              },
+              "country": {
+                "countryName": "GeneratedFindingCountryName"
+              },
+              "city": {
+                "cityName": "GeneratedFindingCityName"
+              },
+              "geoLocation": {
+                "lat": 0,
+                "lon": 0
+              },
+              "ipAddressV6": "1234:5678:90ab:cdef:1234:5678:90ab:cde0"
+            },
+            "statusCode": 200
+          }
+        },
+        "resourceRole": "TARGET",
+        "additionalInfo": {
+          "threatName": "GeneratedFindingThreatName",
+          "threatListName": "GeneratedFindingThreatListName",
+          "sample": true,
+          "value": "{\"threatName\":\"GeneratedFindingThreatName\",\"threatListName\":\"GeneratedFindingThreatListName\",\"sample\":true}",
+          "type": "default"
+        },
+        "evidence": {
+          "threatIntelligenceDetails": [
+            {
+              "threatListName": "GeneratedFindingThreatListName1",
+              "threatNames": [
+                "GeneratedFindingThreatName1",
+                "GeneratedFindingThreatName2",
+                "GeneratedFindingThreatName3",
+                "GeneratedFindingThreatName4"
+              ]
+            },
+            {
+              "threatListName": "GeneratedFindingThreatListName2",
+              "threatNames": [
+                "GeneratedFindingThreatName1",
+                "GeneratedFindingThreatName2",
+                "GeneratedFindingThreatName3",
+                "GeneratedFindingThreatName4"
+              ]
+            },
+            {
+              "threatListName": "GeneratedFindingThreatListName3",
+              "threatNames": [
+                "GeneratedFindingThreatName1",
+                "GeneratedFindingThreatName2",
+                "GeneratedFindingThreatName3",
+                "GeneratedFindingThreatName4"
+              ]
+            },
+            {
+              "threatListName": "GeneratedFindingThreatListName4",
+              "threatNames": [
+                "GeneratedFindingThreatName1",
+                "GeneratedFindingThreatName2",
+                "GeneratedFindingThreatName3",
+                "GeneratedFindingThreatName4"
+              ]
+            }
+          ]
+        },
+        "eventFirstSeen": "2026-06-10T15:25:24.000Z",
+        "eventLastSeen": "2026-06-10T15:25:24.000Z",
+        "archived": false,
+        "count": 1
+      },
+      "severity": 8,
+      "createdAt": "2026-06-10T15:25:24.138Z",
+      "updatedAt": "2026-06-10T15:25:24.138Z",
+      "title": "A Kubernetes API commonly used in DefenseEvasion tactics invoked from an IP address on a custom threat list.",
+      "description": "A Kubernetes API commonly used in DefenseEvasion tactics invoked from an IP address on a custom threat list GeneratedFindingThreatListName."
+    }
+  }
+}
