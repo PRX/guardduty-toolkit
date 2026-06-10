@@ -1,23 +1,23 @@
 {
-  "name": "cloudformation-toolkit",
+  "name": "guardduty-toolkit",
   "version": "1.0.0",
-  "description": "A collection of utilities that integrate with CloudFormation",
+  "description": "A collection of utilities that integrate with GuardDuty",
   "type": "module",
   "engines": {
     "node": ">= 24.0.0"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/PRX/cloudformation-toolkit.git"
+    "url": "git+https://github.com/PRX/guardduty-toolkit.git"
   },
   "keywords": [],
   "author": "",
   "license": "AGPL-3.0",
   "private": "true",
   "bugs": {
-    "url": "https://github.com/PRX/cloudformation-toolkit/issues"
+    "url": "https://github.com/PRX/guardduty-toolkit/issues"
   },
-  "homepage": "https://github.com/PRX/cloudformation-toolkit#readme",
+  "homepage": "https://github.com/PRX/guardduty-toolkit#readme",
   "dependencies": {
     "@aws-sdk/client-eventbridge": "*"
   },

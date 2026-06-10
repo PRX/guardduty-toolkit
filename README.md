@@ -1,1 +1,1 @@
-# CloudFormation Toolkit
+# GuardDuty Toolkit

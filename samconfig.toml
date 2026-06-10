@@ -4,8 +4,8 @@ version = 0.1
 
 [default.deploy.parameters]
 profile = "prx-devops"
-stack_name = "cloudformation-toolkit"
-s3_prefix = "cloudformation-toolkit"
+stack_name = "guardduty-toolkit"
+s3_prefix = "guardduty-toolkit"
 confirm_changeset = false
 capabilities = "CAPABILITY_IAM"
 region = "us-east-2"
