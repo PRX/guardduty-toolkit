@@ -18,7 +18,17 @@ export const handler = async (event) => {
   const region = event.detail.region;
   const regionNickname = regions(region);
   const accountNickname = accounts(event.detail.accountId);
-  const findingType = event.detail.type;
+
+  const preamble = "A GuardDuty Finding has been reported:";
+  const details = [
+    `*Account:* ${accountNickname}`,
+    `*Region:* ${regionNickname}`,
+    `*Type:* \`${event.detail.type}\``,
+    `*Severity:* ${event.detail.severity}`,
+    `*Title:* ${event.detail.title}`,
+    `*Description:* ${event.detail.description}`,
+  ].join("\n>");
+  const text = [preamble, details].join("\n>");
 
   await eventbridge.send(
     new PutEventsCommand({
@@ -30,7 +40,7 @@ export const handler = async (event) => {
             username: "Amazon GuardDuty",
             icon_emoji: ":ops-guardduty:",
             channel: "C0BAG86NKJL", // #ops-security
-            text: `A GuardDuty Finding has been reported:\n> ${accountNickname} – ${regionNickname} \`${findingType}\``,
+            text,
           }),
         },
       ],
