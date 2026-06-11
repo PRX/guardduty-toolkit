@@ -78,12 +78,7 @@
           "kubernetesApiCallAction": {
             "requestUri": "GeneratedFindingRequestURI",
             "verb": "get",
-            "sourceIPs": [
-              "10.0.0.23",
-              "10.0.0.24",
-              "10.0.0.25",
-              "10.0.0.26"
-            ],
+            "sourceIPs": ["10.0.0.23", "10.0.0.24", "10.0.0.25", "10.0.0.26"],
             "userAgent": "",
             "remoteIpDetails": {
               "ipAddressV4": "198.51.100.0",
