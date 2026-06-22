@@ -50,9 +50,9 @@
     tslib "^2.6.2"
 
 "@aws-sdk/client-eventbridge@*":
-  version "3.1066.0"
-  resolved "https://registry.yarnpkg.com/@aws-sdk/client-eventbridge/-/client-eventbridge-3.1066.0.tgz#70e6ec08e2dff3f0411017144eeb3fcbffb46a43"
-  integrity sha512-HwUNpXfuU/Me8Rm3BntMPVForuHvDM9knNSfyVRnWi43BXF52+BGOvvj7X0JTLvfhgZJWRaYx7YxaK4MWiO5qg==
+  version "3.1067.0"
+  resolved "https://registry.yarnpkg.com/@aws-sdk/client-eventbridge/-/client-eventbridge-3.1067.0.tgz#0453e31ad231f1636aa0466212b4a2df73698a0a"
+  integrity sha512-OycObU3ys4nNfm2FzoP6m/kxSxq9D8AlhnQumf/S1eET9guDYCO1dsTFJs/OREE5z98AiGXW7dDv+IZZKbft4A==
   dependencies:
     "@aws-crypto/sha256-browser" "5.2.0"
     "@aws-crypto/sha256-js" "5.2.0"
