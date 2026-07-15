@@ -23,6 +23,7 @@
   },
   "devDependencies": {
     "@biomejs/biome": "*",
+    "@types/aws-lambda": "*",
     "@types/node": "*",
     "jsdoc": "*",
     "typescript": "*",
