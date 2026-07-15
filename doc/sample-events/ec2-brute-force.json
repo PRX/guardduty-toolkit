@@ -1,0 +1,126 @@
+{
+  "version": "0",
+  "id": "e2655688-818a-6e98-3d1e-adcab2d12aad",
+  "detail-type": "GuardDuty Finding",
+  "source": "aws.guardduty",
+  "account": "123456789012",
+  "time": "2026-07-14T18:09:40Z",
+  "region": "us-east-1",
+  "resources": [],
+  "detail": {
+    "accountId": "123456789012",
+    "arn": "arn:aws:guardduty:us-east-1:123456789012:detector/aecefa09939d6f4f269ac0a7c43e0a43/finding/c6cf4401556a146f15ef556c2650f4e1",
+    "createdAt": "2026-06-02T11:05:36.724Z",
+    "id": "c6cf4401556a146f15ef556c2650f4e1",
+    "partition": "aws",
+    "region": "us-east-1",
+    "resource": {
+      "instanceDetails": {
+        "availabilityZone": "us-east-1c",
+        "iamInstanceProfile": {
+          "arn": "arn:aws:iam::123456789012:instance-profile/MyServer",
+          "id": "AIPAJYQGXOZMZLOAAAAAA"
+        },
+        "imageDescription": "Amazon Linux AMI 2099.00.0.20990000 x86_64 HVM GP2",
+        "imageId": "ami-8c1be5f6",
+        "instanceId": "i-0b9daeb6c50763911",
+        "instanceState": "running",
+        "instanceType": "t2.micro",
+        "launchTime": "2099-11-04T12:58:24.000Z",
+        "networkInterfaces": [
+          {
+            "ipv6Addresses": [],
+            "networkInterfaceId": "eni-1bbcbca2",
+            "privateDnsName": "ip-172-20-2-67.ec2.internal",
+            "privateIpAddress": "172.20.2.67",
+            "privateIpAddresses": [
+              {
+                "privateDnsName": "ip-172-20-2-67.ec2.internal",
+                "privateIpAddress": "172.20.2.67"
+              }
+            ],
+            "publicDnsName": "ec2-52-207-16-107.compute-1.amazonaws.com",
+            "publicIp": "123.456.789.012",
+            "securityGroups": [
+              {
+                "groupId": "sg-73ac9301",
+                "groupName": "FTP Server"
+              }
+            ],
+            "subnetId": "subnet-a0dfd19a",
+            "vpcId": "vpc-25f8f040"
+          }
+        ],
+        "outpostArn": null,
+        "platform": null,
+        "productCodes": [],
+        "tags": [
+          {
+            "key": "My Key",
+            "value": "Some Value"
+          }
+        ]
+      },
+      "resourceType": "Instance"
+    },
+    "schemaVersion": "2.0",
+    "service": {
+      "action": {
+        "actionType": "NETWORK_CONNECTION",
+        "networkConnectionAction": {
+          "blocked": false,
+          "connectionDirection": "INBOUND",
+          "localIpDetails": {
+            "ipAddressV4": "172.20.2.67"
+          },
+          "localNetworkInterface": "eni-1bbcbca2",
+          "localPortDetails": {
+            "port": 22,
+            "portName": "SSH"
+          },
+          "protocol": "TCP",
+          "remoteIpDetails": {
+            "city": {
+              "cityName": "Shanghai"
+            },
+            "country": {
+              "countryName": "China"
+            },
+            "geoLocation": {
+              "lat": 42.2222,
+              "lon": 42.4581
+            },
+            "ipAddressV4": "123.456.789.012",
+            "organization": {
+              "asn": "4134",
+              "asnOrg": "Chinanet",
+              "isp": "China Telecom",
+              "org": "China Telecom"
+            }
+          },
+          "remotePortDetails": {
+            "port": 32906,
+            "portName": "Unknown"
+          }
+        }
+      },
+      "additionalInfo": {
+        "value": "{}",
+        "type": "default"
+      },
+      "archived": false,
+      "count": 999,
+      "detectorId": "aecefa09939d6f4f269ac0a7c43e0a43",
+      "eventFirstSeen": "2026-06-02T10:49:31.000Z",
+      "eventLastSeen": "2026-07-14T14:28:23.000Z",
+      "featureName": "VpcFlowLogs",
+      "resourceRole": "TARGET",
+      "serviceName": "guardduty"
+    },
+    "severity": 2,
+    "type": "UnauthorizedAccess:EC2/SSHBruteForce",
+    "updatedAt": "2026-07-14T14:32:53.449Z",
+    "title": "123.456.789.012 is performing SSH brute force attacks against i-0b9daeb6c50763911.",
+    "description": "123.456.789.012 is performing SSH brute force attacks against i-0b9daeb6c50763911. Brute force attacks are used to gain unauthorized access to your instance by guessing the SSH password."
+  }
+}
