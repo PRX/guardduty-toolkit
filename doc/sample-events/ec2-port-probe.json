@@ -1,0 +1,129 @@
+{
+  "version": "0",
+  "id": "f0191cab-0a9a-e7ab-79ac-8a2f43e890c7",
+  "detail-type": "GuardDuty Finding",
+  "source": "aws.guardduty",
+  "account": "123456789012",
+  "time": "2026-07-15T12:07:45Z",
+  "region": "us-east-1",
+  "resources": [],
+  "detail": {
+    "accountId": "123456789012",
+    "arn": "arn:aws:guardduty:us-east-1:123456789012:detector/aecefa09939d6f4f269ac0a7c43e0a43/finding/7ecefa3e22030b90863976d3f0fe5aab",
+    "createdAt": "2026-05-04T19:34:37.830Z",
+    "id": "7ecefa3e22030b90863976d3f0fe5aab",
+    "partition": "aws",
+    "region": "us-east-1",
+    "resource": {
+      "instanceDetails": {
+        "availabilityZone": "us-east-1c",
+        "iamInstanceProfile": {
+          "arn": "arn:aws:iam::123456789012:instance-profile/MyServer",
+          "id": "AIPAJYQGXOZMZLOAAAAAA"
+        },
+        "imageDescription": "Amazon Linux AMI 2099.00.0.20990000 x86_64 HVM GP2",
+        "imageId": "ami-8c1be5f6",
+        "instanceId": "i-0b9daeb6c50763911",
+        "instanceState": "running",
+        "instanceType": "t2.micro",
+        "launchTime": "2099-11-04T12:58:24.000Z",
+        "networkInterfaces": [
+          {
+            "ipv6Addresses": [],
+            "networkInterfaceId": "eni-1bbcbca2",
+            "privateDnsName": "ip-172-20-2-67.ec2.internal",
+            "privateIpAddress": "172.20.2.67",
+            "privateIpAddresses": [
+              {
+                "privateDnsName": "ip-172-20-2-67.ec2.internal",
+                "privateIpAddress": "172.20.2.67"
+              }
+            ],
+            "publicDnsName": "ec2-52-207-16-107.compute-1.amazonaws.com",
+            "publicIp": "123.456.789.012",
+            "securityGroups": [
+              {
+                "groupId": "sg-73ac9301",
+                "groupName": "My Server"
+              }
+            ],
+            "subnetId": "subnet-a0dfd19a",
+            "vpcId": "vpc-25f8f040"
+          }
+        ],
+        "outpostArn": null,
+        "platform": null,
+        "productCodes": [],
+        "tags": [
+          {
+            "key": "My Key",
+            "value": "Some Value"
+          }
+        ]
+      },
+      "resourceType": "Instance"
+    },
+    "schemaVersion": "2.0",
+    "service": {
+      "action": {
+        "actionType": "PORT_PROBE",
+        "portProbeAction": {
+          "blocked": false,
+          "portProbeDetails": [
+            {
+              "localPortDetails": {
+                "port": 21,
+                "portName": "FTP"
+              },
+              "remoteIpDetails": {
+                "city": {
+                  "cityName": "UNKNOWN"
+                },
+                "country": {
+                  "countryName": "United States"
+                },
+                "geoLocation": {
+                  "lat": 42.751,
+                  "lon": -42.822
+                },
+                "ipAddressV4": "123.456.789.012",
+                "organization": {
+                  "asn": "398324",
+                  "asnOrg": "Censys, Inc.",
+                  "isp": "Censys",
+                  "org": "Censys"
+                }
+              }
+            }
+          ]
+        }
+      },
+      "additionalInfo": {
+        "threatListName": "Amazon",
+        "value": "{\"threatListName\":\"Amazon\"}",
+        "type": "default"
+      },
+      "archived": false,
+      "count": 999,
+      "detectorId": "aecefa09939d6f4f269ac0a7c43e0a43",
+      "eventFirstSeen": "2026-05-04T19:28:43.000Z",
+      "eventLastSeen": "2026-07-15T11:39:33.000Z",
+      "evidence": {
+        "threatIntelligenceDetails": [
+          {
+            "threatListName": "CrowdStrike",
+            "threatNames": []
+          }
+        ]
+      },
+      "featureName": "VpcFlowLogs",
+      "resourceRole": "TARGET",
+      "serviceName": "guardduty"
+    },
+    "severity": 2,
+    "type": "Recon:EC2/PortProbeUnprotectedPort",
+    "updatedAt": "2026-07-15T11:44:37.509Z",
+    "title": "An unprotected port on EC2 instance i-0b9daeb6c50763911 is being probed.",
+    "description": "An EC2 instance has an unprotected port which is being probed by a known malicious host."
+  }
+}
