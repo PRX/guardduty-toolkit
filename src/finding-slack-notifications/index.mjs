@@ -75,7 +75,7 @@ export const handler = async (event) => {
   const { resource } = finding;
 
   if (
-    ["i-0b9daeb6c50763911"].includes(resource.instanceDetails.instanceId) &&
+    ["i-0b9daeb6c50763911"].includes(resource?.instanceDetails?.instanceId) &&
     finding.service.count > 10
   ) {
     return;

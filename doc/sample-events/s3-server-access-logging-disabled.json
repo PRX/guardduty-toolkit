@@ -1,0 +1,132 @@
+{
+  "version": "0",
+  "id": "e885a8c1-68f9-da60-99d4-b239de66ce0d",
+  "detail-type": "GuardDuty Finding",
+  "source": "aws.guardduty",
+  "account": "123456789012",
+  "time": "2026-07-23T20:20:01Z",
+  "region": "us-east-1",
+  "resources": [],
+  "detail": {
+    "accountId": "123456789012",
+    "arn": "arn:aws:guardduty:us-east-1:123456789012:detector/aecefa09939d6f4f269ac0a7c43e0a43/finding/aacfc8501efd177cc982cdcaa53fe0cc",
+    "createdAt": "2026-07-23T20:17:28.570Z",
+    "id": "aacfc8501efd177cc982cdcaa53fe0cc",
+    "partition": "aws",
+    "region": "us-east-1",
+    "resource": {
+      "accessKeyDetails": {
+        "accessKeyId": "ASIAYFKGSLAAAAAAAA",
+        "principalId": "AROAJWFD2Q7V4FGAOWVEI:someone@example.com",
+        "sessionContext": {
+          "attributes": {
+            "createdTime": 1784835274000,
+            "mfaStatus": "DISABLED"
+          }
+        },
+        "userName": "AWSReservedSSO_AdministratorAccess_9acdfb00be5aaaaa",
+        "userType": "AssumedRole"
+      },
+      "resourceType": "AccessKey",
+      "s3BucketDetails": [
+        {
+          "name": "my-bucket",
+          "type": "Destination",
+          "arn": "arn:aws:s3:::my-bucket",
+          "createdAt": 1710515387,
+          "defaultServerSideEncryption": {
+            "encryptionType": "AES256"
+          },
+          "owner": {
+            "id": "a68732b7698a17e7d1ab11255596f9c06cdc7f5520f67e65125abb91d57c2ea7"
+          },
+          "publicAccess": {
+            "effectivePermission": "NOT_PUBLIC",
+            "permissionConfiguration": {
+              "accountLevelPermissions": {
+                "blockPublicAccess": {
+                  "blockPublicAcls": false,
+                  "blockPublicPolicy": false,
+                  "ignorePublicAcls": false,
+                  "restrictPublicBuckets": false
+                }
+              },
+              "bucketLevelPermissions": {
+                "accessControlList": {
+                  "allowsPublicReadAccess": false,
+                  "allowsPublicWriteAccess": false
+                },
+                "blockPublicAccess": {
+                  "blockPublicAcls": false,
+                  "blockPublicPolicy": false,
+                  "ignorePublicAcls": false,
+                  "restrictPublicBuckets": false
+                },
+                "bucketPolicy": {
+                  "allowsPublicReadAccess": false,
+                  "allowsPublicWriteAccess": false
+                }
+              }
+            }
+          },
+          "tags": [
+            {
+              "key": "MyKey",
+              "value": "SomeValue"
+            }
+          ]
+        }
+      ]
+    },
+    "schemaVersion": "2.0",
+    "service": {
+      "action": {
+        "actionType": "AWS_API_CALL",
+        "awsApiCallAction": {
+          "affectedResources": {
+            "AWS::S3::Bucket": "my-bucket"
+          },
+          "api": "PutBucketLogging",
+          "callerType": "Remote IP",
+          "remoteIpDetails": {
+            "city": {
+              "cityName": "Smallville"
+            },
+            "country": {
+              "countryName": "United States"
+            },
+            "geoLocation": {
+              "lat": 42.0,
+              "lon": 42.0
+            },
+            "ipAddressV4": "123.456.789.123",
+            "organization": {
+              "asn": "701",
+              "asnOrg": "Verizon Business",
+              "isp": "Verizon Fios",
+              "org": "Verizon Fios"
+            }
+          },
+          "serviceName": "s3.amazonaws.com"
+        }
+      },
+      "additionalInfo": {
+        "value": {},
+        "type": "default"
+      },
+      "archived": false,
+      "count": 1,
+      "detectorId": "aecefa09939d6f4f269ac0a7c43e0a43",
+      "eventFirstSeen": "2026-07-23T20:11:40.000Z",
+      "eventLastSeen": "2026-07-23T20:11:40.000Z",
+      "featureName": "CloudTrailManagementEvent",
+      "resourceRole": "TARGET",
+      "serviceName": "guardduty"
+    },
+    "severity": 2,
+    "type": "Stealth:S3/ServerAccessLoggingDisabled",
+    "updatedAt": "2026-07-23T20:17:28.570Z",
+    "title": "Amazon S3 Server Access Logging was disabled for the S3 bucket my-bucket.",
+    "description": "Amazon S3 Server Access Logging was disabled for the S3 bucket my-bucket by AWSReservedSSO_AdministratorAccess_9acdfb00be5c4bba calling PutBucketLogging. This can lead to lack of visibility into actions taken on the affected S3 bucket and its objects if an event occurs."
+  }
+}
