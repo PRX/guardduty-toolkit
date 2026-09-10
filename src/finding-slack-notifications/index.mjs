@@ -9,8 +9,8 @@
  * @property {string} id
  * @property {string} arn
  * @property {string} type
- * @property {InstanceResource} resource
- * @property {FindingService} service
+ * @property {InstanceResource | AccessKeyResource} resource
+ * @property {Service} service
  * @property {number} severity
  * @property {string} createdAt
  * @property {string} updatedAt
@@ -19,13 +19,25 @@
  */
 
 /**
- * @typedef {Object} InstanceResource
- * @property {"Instance"} resourceType
- * @property {InstanceResourceDetails} instanceDetails
+ * @typedef {Object} AccessKeyResource
+ * @property {"AccessKey"} resourceType
+ * @property {AccessKeyDetails} accessKeyDetails
  */
 
 /**
- * @typedef {Object} InstanceResourceDetails
+ * @typedef {Object} AccessKeyDetails
+ * @property {string} accessKeyId
+ * @property {string} principalId
+ */
+
+/**
+ * @typedef {Object} InstanceResource
+ * @property {"Instance"} resourceType
+ * @property {InstanceDetails} instanceDetails
+ */
+
+/**
+ * @typedef {Object} InstanceDetails
  * @property {string} availabilityZone
  * @property {string} imageDescription
  * @property {string} imageId
@@ -33,10 +45,17 @@
  * @property {string} instanceState
  * @property {string} instanceType
  * @property {string} launchTime
+ * @property {ResourceTag[]} tags
  */
 
 /**
- * @typedef {Object} FindingService
+ * @typedef {Object} ResourceTag
+ * @property {string} key
+ * @property {string} value
+ */
+
+/**
+ * @typedef {Object} Service
  * @property {string} serviceName
  * @property {string} resourceRole
  * @property {string} featureName
@@ -45,6 +64,41 @@
  * @property {string} detectorId
  * @property {number} count
  * @property {boolean} archived
+ * @property {NetworkConnectionAction} action
+ */
+
+/**
+ * @typedef {Object} NetworkConnectionAction
+ * @property {"NETWORK_CONNECTION"} actionType
+ * @property {NetworkConnectionActionDetails} networkConnectionAction
+ */
+
+/**
+ * @typedef {Object} NetworkConnectionActionDetails
+ * @property {boolean} blocked
+ * @property {NetworkConnectionIpDetails} localIpDetails
+ * @property {NetworkConnectionIpDetails} remoteIpDetails
+ */
+
+/**
+ * @typedef {Object} NetworkConnectionIpDetails
+ * @property {string} ipAddressV4
+ * @property {string} ipAddressV6
+ * @property {IpCountry} country
+ * @property {IpOrganization} organization
+ */
+
+/**
+ * @typedef {Object} IpOrganization
+ * @property {string} asn
+ * @property {string} asnOrg
+ * @property {string} isp
+ * @property {string} org
+ */
+
+/**
+ * @typedef {Object} IpCountry
+ * @property {string} countryName
  */
 
 import {
@@ -75,13 +129,13 @@ export const handler = async (event) => {
   const { resource } = finding;
 
   if (
+    "instanceDetails" in resource &&
     ["i-0b9daeb6c50763911"].includes(resource?.instanceDetails?.instanceId) &&
     finding.service.count > 10
   ) {
     return;
   }
 
-  const preamble = "A GuardDuty Finding has been reported:";
   const details = [
     `*Account:* ${accountNickname}`,
     `*Region:* ${regionNickname}`,
@@ -89,8 +143,53 @@ export const handler = async (event) => {
     `*Severity:* ${finding.severity}`,
     `*Title:* ${finding.title}`,
     `*Description:* ${finding.description}`,
-  ].join("\n>");
-  const text = [preamble, details].join("\n>");
+  ];
+
+  const remoteIp =
+    finding?.service?.action?.networkConnectionAction?.remoteIpDetails;
+  if (remoteIp.ipAddressV4 || remoteIp.ipAddressV6) {
+    let ipDetails = `\`${remoteIp.ipAddressV4 || remoteIp.ipAddressV6}\``;
+
+    const moreDetails = [];
+
+    if (remoteIp.country?.countryName) {
+      moreDetails.push(remoteIp.country.countryName);
+    }
+
+    if (remoteIp.organization?.asn) {
+      moreDetails.push(`ASN: ${remoteIp.organization.asn}`);
+    }
+    if (remoteIp.organization?.asnOrg) {
+      moreDetails.push(remoteIp.organization.asnOrg);
+    }
+    if (remoteIp.organization?.org) {
+      moreDetails.push(remoteIp.organization.org);
+    }
+
+    if (moreDetails.length) {
+      ipDetails = `${ipDetails} (${moreDetails.join(", ")})`;
+    }
+
+    details.push(`*Remote IP:* ${ipDetails}`);
+  }
+
+  if (finding?.resource?.resourceType === "Instance") {
+    const instanceDetails = finding.resource.instanceDetails;
+
+    if (instanceDetails?.instanceId) {
+      let str = `\`${instanceDetails.instanceId}\``;
+
+      const nameTag = instanceDetails.tags.find((t) => t.key === "Name");
+      if (nameTag) {
+        str = `${str} (Name: ${nameTag.value})`;
+      }
+
+      details.push(`*EC2 Instance:* ${str}`);
+    }
+  }
+
+  const preamble = "A GuardDuty Finding has been reported:";
+  const text = [preamble, details.join("\n>")].join("\n>");
 
   await eventbridge.send(
     new PutEventsCommand({
