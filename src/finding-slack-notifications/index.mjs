@@ -147,7 +147,7 @@ export const handler = async (event) => {
 
   const remoteIp =
     finding?.service?.action?.networkConnectionAction?.remoteIpDetails;
-  if (remoteIp.ipAddressV4 || remoteIp.ipAddressV6) {
+  if (remoteIp?.ipAddressV4 || remoteIp?.ipAddressV6) {
     let ipDetails = `\`${remoteIp.ipAddressV4 || remoteIp.ipAddressV6}\``;
 
     const moreDetails = [];
